@@ -14,8 +14,7 @@ void DMA1_Stream6_IRQHandler(void) {
 
 }
 
-// might need to add IDLE line handling,
-// if the buffer isn't half full data will just sit forever
+// if the Rx buffer isn't half full data will just sit forever
 // want interactive CLI, so will need to use circular buffer + IDLE to echo characters back
 void DMA_Init(void) {
 	if (LL_DMA_IsEnabledStream(DMA1, LL_DMA_STREAM_5)) {
@@ -34,8 +33,12 @@ void DMA_Init(void) {
 
 	LL_DMA_SetChannelSelection(DMA1, LL_DMA_STREAM_5, LL_DMA_CHANNEL_4);
 
+	LL_DMA_DisableFifoMode(DMA1, LL_DMA_STREAM_5);
+
 	LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_5, LL_DMA_PRIORITY_VERYHIGH);
 
+	LL_DMA_EnableIT_HT(DMA1, LL_DMA_STREAM_5);
+	LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_5);
 
 
 
@@ -43,9 +46,9 @@ void DMA_Init(void) {
 
 //	LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_6, LL_DMA_PRIORITY_HIGH);
 
-//	NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+	NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 //	NVIC_EnableIRQ(DMA1_Stream6_IRQn);
 //
-//	LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_5);
+	LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_5);
 //	LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_6);
 }

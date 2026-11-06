@@ -4,7 +4,7 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_ll_dma.h"
 
-#define USART2_RECEIVER_BUF_SIZE 64
+#define USART2_RECEIVER_BUF_SIZE 256
 
 extern uint8_t USART2_Receiver_Buf[USART2_RECEIVER_BUF_SIZE];
 

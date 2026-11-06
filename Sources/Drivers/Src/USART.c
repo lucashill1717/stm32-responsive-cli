@@ -38,7 +38,6 @@ void USART2_Set_Baud_Rate(uint32_t baud_rate) {
 
 void USART2_Init(uint32_t baud_rate) {
 	SET_BIT(RCC->APB1ENR, RCC_APB1ENR_USART2EN);  // Enable USART2 clock
-	SET_BIT(USART2->CR1, 1 << 13);                // UE, USART enable
 
 	CLEAR_BIT(USART2->CR1, 1 << 15);              // OVER8, oversample by 16
 	CLEAR_BIT(USART2->CR1, 1 << 12);              // M, data length 8
@@ -55,4 +54,6 @@ void USART2_Init(uint32_t baud_rate) {
 //	SET_BIT(USART2->CR1, 1 << 6);                 // TCIE, tranmission complete interupt enable
 //	SET_BIT(USART2->CR1, 1 << 5);                 // RXNEIE, read data register not empty interupt enable
 //	NVIC_EnableIRQ(USART2_IRQn);
+
+	SET_BIT(USART2->CR1, 1 << 13);                // UE, USART enable
 }
